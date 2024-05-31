@@ -1,28 +1,28 @@
 import argparse
 
 import pandas as pd
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 from loguru import logger
 
 
 class SSQDataset(Dataset):
-    def __init__(self, args):
+    def __init__(self, args, train=True):
         self.args = args
         self.path = args.path
-        self.data = pd.read_csv(self.path, delimiter=',', header='infer')
+        self.data = pd.read_csv(self.path, delimiter=',', skiprows=1,
+                                names=['index', 'time', 'red_1', 'red_2', 'red_3', 'red_4', 'red_5', 'red_6', 'blue'])
         # 分割训练集和测试集
         train_size = int(len(self.data) * args.train_ratio)
-        self.train_set = self.data[:train_size]
-        self.test_set = self.data[train_size:]
-        logger.info("读取到【训练集】长度为：{}", len(self.train_set))
-        logger.info("读取到【测试集】长度为：{}", len(self.test_set))
-
-
-    def __getitem__(self, item):
-        pass
+        if train:
+            self.set = self.data[:train_size]
+        else:
+            self.set = self.data[train_size:]
 
     def __len__(self):
-        pass
+        return len(self.set)
+
+    def __getitem__(self, idx):
+        return self.set.iloc[idx]
 
 
 if __name__=='__main__':
@@ -30,4 +30,7 @@ if __name__=='__main__':
     args = parser.parse_args()
     args.path='../data/ssq/data.csv'
     args.train_ratio=0.8
-    SSQDataset(args)
+    train_set = SSQDataset(args, train=True)
+    test_set = SSQDataset(args, train=False)
+    logger.info("train_set length:{}", len(train_set))
+    logger.info("test_set length:{}", len(test_set))
