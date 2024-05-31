@@ -1,5 +1,7 @@
 from torch.utils.data import DataLoader
-from dataset import SSQDataset
+
+from dataloader.dataset import SSQDataset
+
 
 def build_dataloader(args):
     train_set=SSQDataset(args, train=True)
