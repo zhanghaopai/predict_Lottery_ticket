@@ -4,22 +4,13 @@ Author: BigCat
 """
 import os
 
-ball_name = [
-    ("红球", "red"),
-    ("蓝球", "blue")
-]
+ball_name = [("红球", "red"), ("蓝球", "blue")]
 
 data_file_name = "data.csv"
 
 name_path = {
-    "ssq": {
-        "name": "双色球",
-        "path": "data/ssq/"
-    },
-    "dlt": {
-        "name": "大乐透",
-        "path": "data/dlt/"
-    }
+    "ssq": {"name": "双色球", "path": "data/ssq/"},
+    "dlt": {"name": "大乐透", "path": "data/dlt/"},
 }
 
 model_path = os.getcwd() + "/model/"
@@ -39,7 +30,7 @@ model_args = {
             "blue_epochs": 1,
             "blue_embedding_size": 32,
             "blue_hidden_size": 32,
-            "blue_layer_size": 1
+            "blue_layer_size": 1,
         },
         "train_args": {
             "red_learning_rate": 0.001,
@@ -49,12 +40,12 @@ model_args = {
             "blue_learning_rate": 0.001,
             "blue_beta1": 0.9,
             "blue_beta2": 0.999,
-            "blue_epsilon": 1e-08
+            "blue_epsilon": 1e-08,
         },
         "path": {
             "red": model_path + "/ssq/red_ball_model/",
-            "blue": model_path + "/ssq/blue_ball_model/"
-        }
+            "blue": model_path + "/ssq/blue_ball_model/",
+        },
     },
     "dlt": {
         "model_args": {
@@ -71,7 +62,7 @@ model_args = {
             "blue_epochs": 1,
             "blue_embedding_size": 32,
             "blue_hidden_size": 32,
-            "blue_layer_size": 1
+            "blue_layer_size": 1,
         },
         "train_args": {
             "red_learning_rate": 0.001,
@@ -81,13 +72,13 @@ model_args = {
             "blue_learning_rate": 0.001,
             "blue_beta1": 0.9,
             "blue_beta2": 0.999,
-            "blue_epsilon": 1e-08
+            "blue_epsilon": 1e-08,
         },
         "path": {
             "red": model_path + "/dlt/red_ball_model/",
-            "blue": model_path + "/dlt/blue_ball_model/"
-        }
-    }
+            "blue": model_path + "/dlt/blue_ball_model/",
+        },
+    },
 }
 
 # 模型名
